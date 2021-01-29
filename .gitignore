@@ -1,2 +1,4 @@
-.en
+.env
 .vscodev
+settings.json
+__pycache__

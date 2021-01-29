@@ -4,25 +4,18 @@ import os
 import requests
 from dotenv import load_dotenv
 
+# Load own modules
+import shipment_info
+
+# Import Environmental variables
 load_dotenv()
+BOT_KEY = os.getenv('BOT_KEY')
 TRACKN = os.getenv('TRACKING_NUMBER')
-TOKEN = os.getenv('DHL_API_TOKEN')
 
-params = {'trackingNumber': TRACKN}
+# Get the Shimpent Info
+sh_info = shipment_info.get_shipment_info(TRACKN)
 
-headers = {
-    'Accept': 'application/json', 
-    'DHL-API-Key': TOKEN
-}
-
-response = requests.get('https://api-eu.dhl.com/track/shipments',params=params, headers=headers)
-
-print(response)
-
-data = response.json()
-
-sh_timestamp = data['shipments'][0]['status']['timestamp']
-sh_status = data['shipments'][0]['status']['status']
+print(sh_info)
 
 
 ''' 
