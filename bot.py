@@ -17,9 +17,10 @@ import shipment_info
 # APP_NAME = os.getenv('APP_NAME')
 
 ## On Heroku:
-BOT_KEY = os.environ['BOT_KEY'], 
-os.environ['TRACKING_NUMBER'], 
-os.environ['APP_NAME']
+BOT_KEY = os.environ['BOT_KEY']
+TRACKING_NUMBER = os.environ['TRACKING_NUMBER']
+APP_NAME = os.environ['APP_NAME']
+PORT = os.environ['PORT']
 
 # Enable Logging
 logging.basicConfig()
@@ -53,7 +54,8 @@ def main():
     '''
     Start the bot
     '''
-    updater = Updater(BOT_KEY)
+
+    updater = Updater(token=BOT_KEY)
 
     # Get the dispatcher to register handlers (need to understand better)
     dp = updater.dispatcher
@@ -69,10 +71,9 @@ def main():
     updater.start_webhook(
         listen="0.0.0.0",
         port=PORT,
-        url_path=TOKEN,
+        url_path=BOT_KEY,
     )
-
-    updater.bot.set_webhook(APP_NAME + TOKEN)
+    updater.bot.set_webhook(APP_NAME + "/" + BOT_KEY)
     
     # updater.start_polling()
 
