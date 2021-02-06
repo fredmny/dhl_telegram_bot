@@ -73,7 +73,7 @@ def main():
         port=PORT,
         url_path=BOT_KEY,
     )
-    updater.bot.set_webhook(APP_NAME + "/" + BOT_KEY)
+    updater.bot.set_webhook(APP_NAME + BOT_KEY)
     
     # updater.start_polling()
 
