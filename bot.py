@@ -13,11 +13,12 @@ import shipment_info
 load_dotenv()
 BOT_KEY = os.getenv('BOT_KEY')
 TRACKN = os.getenv('TRACKING_NUMBER')
-
+APP_NAME = os.getenv('APP_NAME')
 # Enable Logging
 logging.basicConfig()
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def start(update, context):
     # Send a message when the command /start is issued.
@@ -56,7 +57,17 @@ def main():
 
     dp.add_error_handler(error)
 
-    updater.start_polling()
+    # Using webhooks instead of polling. To teste the code locally, comment the
+    # two next functions and uncomment 'updater.start_polling()
+    updater.start_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        url_path=TOKEN,
+    )
+
+    updater.bot.set_webhook(APP_NAME + TOKEN)
+    
+    # updater.start_polling()
 
     updater.idle()
 
@@ -66,7 +77,6 @@ if __name__ == '__main__':
 ''' 
 To Do:
 - Turn timestamp info into individual variables
-- Create Telegram Bot 
 - run bot on startup / specific times
 
 Info:
