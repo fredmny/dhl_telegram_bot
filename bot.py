@@ -13,14 +13,13 @@ import shipment_info
 ## Locally:
 # load_dotenv()
 # BOT_KEY = os.getenv('BOT_KEY')
-# TRACKN = os.getenv('TRACKING_NUMBER')
+# TRACKING_NUMBER = os.getenv('TRACKING_NUMBER')
 # APP_NAME = os.getenv('APP_NAME')
 
 ## On Heroku:
-from boto.s3.connection import S3Connection
-s3 = S3Connection(
-    os.environ['BOT_KEY'], os.environ['TRACKN'], os.environ['APP_NAME']
-    )
+os.environ['BOT_KEY'], 
+os.environ['TRACKING_NUMBER'], 
+os.environ['APP_NAME']
 
 # Enable Logging
 logging.basicConfig()
@@ -42,7 +41,7 @@ def error(update, context):
 
 # Get the Shimpent Info
 def shipment_status(update, context):
-    sh_info = shipment_info.get_shipment_info(TRACKN)
+    sh_info = shipment_info.get_shipment_info(TRACKING_NUMBER)
     update.message.reply_text(
     f'--- Shipment Status ---\n\
     Last update: {sh_info[1]}\n\

@@ -5,8 +5,7 @@ import requests
 from dotenv import load_dotenv
 
 # Import Environmental variables
-load_dotenv()
-DHL_TOKEN = os.getenv('DHL_API_TOKEN')
+os.environ('DHL_API_TOKEN')
 
 # Get shipment info
 
