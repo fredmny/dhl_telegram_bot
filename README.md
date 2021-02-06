@@ -1,5 +1,6 @@
 # Telegram DHL Bot (WIP)
 Another Project with the main intention of learning Python. The purpose of this application is to get updates about my DHL package status through Telegram.
+First functioning version live on Heroku.
 ## Topics Being Learned
 1. Use of API's
     - Using the DHL API to get my package status.
