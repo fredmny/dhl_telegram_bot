@@ -17,7 +17,7 @@ import shipment_info
 # APP_NAME = os.getenv('APP_NAME')
 
 ## On Heroku:
-os.environ['BOT_KEY'], 
+BOT_KEY = os.environ['BOT_KEY'], 
 os.environ['TRACKING_NUMBER'], 
 os.environ['APP_NAME']
 
