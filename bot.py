@@ -10,10 +10,18 @@ import logging
 import shipment_info
 
 # Import Environmental variables
-load_dotenv()
-BOT_KEY = os.getenv('BOT_KEY')
-TRACKN = os.getenv('TRACKING_NUMBER')
-APP_NAME = os.getenv('APP_NAME')
+## Locally:
+# load_dotenv()
+# BOT_KEY = os.getenv('BOT_KEY')
+# TRACKN = os.getenv('TRACKING_NUMBER')
+# APP_NAME = os.getenv('APP_NAME')
+
+## On Heroku:
+from boto.s3.connection import S3Connection
+s3 = S3Connection(
+    os.environ['BOT_KEY'], os.environ['TRACKN'], os.environ['APP_NAME']
+    )
+
 # Enable Logging
 logging.basicConfig()
 
