@@ -48,7 +48,7 @@ def start(update, context):
         '/status "tracking number" - Display tracking status',
         '/help - Display this help message'
     )
-    update.message.reply_text(help_message)
+    update.message.reply_text('\n'.join(help_message))
     
 def error(update, context):
     # Log errors caused by Updates.
@@ -59,7 +59,7 @@ def shipment_status(update, context):
     user_input = context.args
     if len(user_input) == 1:
         sh_info = shipment_info.get_shipment_info(user_input[0])
-        if sh_info[0] == '200':
+        if sh_info[0] == 200:
             update.message.reply_text(
             f'--- Shipment Status ---\nMessage: {sh_info[3]}'
             )
