@@ -32,3 +32,5 @@ def get_shipment_info(tracking_number):
 
     info = (response.status_code, sh_timestamp, sh_status, sh_description)
     return info
+
+print(get_shipment_info('rm430579235de')[0])

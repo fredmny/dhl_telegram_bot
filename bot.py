@@ -28,10 +28,6 @@ logging.basicConfig()
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def start(update, context):
-    # Send a message when the command /start is issued.
-    update.message.reply_text('Welcome to the DHL Telegram bot')
-
 def help(update, context):
     # Send a message when the command /help is issued.
     help_message = (
@@ -42,6 +38,11 @@ def help(update, context):
     )
     update.message.reply_text('\n'.join(help_message))
 
+def start(update, context):
+    # Send a message when the command /start is issued.
+    update.message.reply_text('Welcome to the DHL Telegram bot')
+    help()
+
 def error(update, context):
     # Log errors caused by Updates.
     logger.warning('Update "%s" caused error "%s"', update, context.error)
@@ -51,14 +52,20 @@ def shipment_status(update, context):
     user_input = context.args
     if len(user_input) == 1:
         sh_info = shipment_info.get_shipment_info(user_input[0])
-        update.message.reply_text(
-        f'--- Shipment Status ---\nMessage: {sh_info[3]}'
-        )
+        if sh_info[0] == 200:
+            update.message.reply_text(
+            f'--- Shipment Status ---\nMessage: {sh_info[3]}'
+            )
+        else:
+            update.message.reply_text(
+                'Tracking number not found!'
+            )
     else:
-        update.message.reply_text(
-            f'''Please input just and only one Tracking Number. 
-            You inputed{len(user_input)}'''
+        error_reply = (
+            'Please input just and only 1 Tracking Number.',
+            f'You inputed {len(user_input)}.'
         )
+        update.message.reply_text('\n'.join(error_reply))
 
 def main():
     '''
