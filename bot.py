@@ -34,7 +34,13 @@ def start(update, context):
 
 def help(update, context):
     # Send a message when the command /help is issued.
-    update.message.reply_text('Help!')
+    help_message = (
+        'Available commands',
+        '/start - Start interaction with bot',
+        '/status "tracking number" - Display tracking status',
+        '/help - Display this help message'
+    )
+    update.message.reply_text('\n'.join(help_message))
 
 def error(update, context):
     # Log errors caused by Updates.
@@ -42,13 +48,17 @@ def error(update, context):
 
 # Get the Shimpent Info
 def shipment_status(update, context):
-    sh_info = shipment_info.get_shipment_info(TRACKING_NUMBER)
-    update.message.reply_text(
-    f'--- Shipment Status ---\n\
-    Last update: {sh_info[1]}\n\
-    Status: {sh_info[2]}\n\
-    Message: {sh_info[3]}'
-    )
+    user_input = context.args
+    if len(user_input) == 1:
+        sh_info = shipment_info.get_shipment_info(user_input[0])
+        update.message.reply_text(
+        f'--- Shipment Status ---\nMessage: {sh_info[3]}'
+        )
+    else:
+        update.message.reply_text(
+            f'''Please input just and only one Tracking Number. 
+            You inputed{len(user_input)}'''
+        )
 
 def main():
     '''
