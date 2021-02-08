@@ -30,7 +30,7 @@ logger.setLevel(logging.INFO)
 
 def help(update, context):
     # Send a message when the command /help is issued.
-    help_message = (
+    global help_message = (
         'Available commands',
         '/start - Start interaction with bot',
         '/status "tracking number" - Display tracking status',
@@ -41,7 +41,7 @@ def help(update, context):
 def start(update, context):
     # Send a message when the command /start is issued.
     update.message.reply_text('Welcome to the DHL Telegram bot')
-    help()
+    update.message.reply_text(help_message)
 
 def error(update, context):
     # Log errors caused by Updates.
@@ -52,13 +52,13 @@ def shipment_status(update, context):
     user_input = context.args
     if len(user_input) == 1:
         sh_info = shipment_info.get_shipment_info(user_input[0])
-        if sh_info[0] == 200:
+        if sh_info[0] == '200':
             update.message.reply_text(
             f'--- Shipment Status ---\nMessage: {sh_info[3]}'
             )
         else:
             update.message.reply_text(
-                'Tracking number not found!'
+                'Tracking number not'
             )
     else:
         error_reply = (
