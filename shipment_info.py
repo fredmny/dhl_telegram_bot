@@ -32,5 +32,5 @@ def get_shipment_info(tracking_number):
         sh_description = data['shipments'][0]['status']['description']
         info = (response.status_code, sh_timestamp, sh_status, sh_description)
     else:
-        info = response.status_code
+        info = [response.status_code]
     return info
