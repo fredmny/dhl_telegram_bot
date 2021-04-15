@@ -90,7 +90,7 @@ def main():
 
     dp.add_error_handler(error)
 
-    # Using webhooks instead of polling. To teste the code locally, comment the
+    # Using webhooks instead of polling. To test the code locally, comment the
     # two next functions and uncomment 'updater.start_polling()
     updater.start_webhook(
         listen="0.0.0.0",
